@@ -25,10 +25,12 @@ brew cask install moom
 brew cask install atext
 brew cask install captin
 brew cask install 1password
+brew cask install itsycal
 brew cask install virtualbox
 brew cask install vagrant
 brew cask install emacs
 brew cask install vlc
+brew cask install the-unarchiver
 brew tap homebrew/cask-fonts
 brew cask install font-source-code-pro
 ```
@@ -48,7 +50,7 @@ brew cask install font-source-code-pro
 
 -   Size: Small
 -   Position on screen: Left
--   Unchech "Show recent applications in Dock"
+-   Uncheck "Show recent applications in Dock"
 
 
 ### Mouse {#mouse}
@@ -73,17 +75,23 @@ brew cask install font-source-code-pro
     -   Captin
     -   Hazeover
     -   1password
+    -   Itsycal
 
 
 ### Energy Saver {#energy-saver}
 
--   Computer sleep: 3h
--   Display sleep: 3h
+-   Computer sleep: 1h
+-   Display sleep: 1h
 
 
 ### Notifications {#notifications}
 
 -   Turn off all
+
+
+### Data & Time {#data-and-time}
+
+-   Clock -> Uncheck "Show date and time in menu bar"
 
 
 ## Finder {#finder}
@@ -161,6 +169,18 @@ brew cask install font-source-code-pro
 -   Load license
 
 
+## Itsycal {#itsycal}
+
+-   Appearance
+    -   Datetime pattern
+
+        ```nil
+        MMM d '𝕎'w E h:mm a
+        ```
+    -   Check "Hide icon"
+    -   Check "Use larger text"
+
+
 ## Sogou input {#sogou-input}
 
 -   Install
@@ -173,6 +193,7 @@ brew cask install font-source-code-pro
     -   状态栏提示: uncheck all
     -   外观: 简约黑
     -   统计: uncheck all
+    -   按键：禁用快捷键，上下方向键翻页
 
 
 ## VLC {#vlc}
@@ -191,7 +212,7 @@ brew cask install font-source-code-pro
     -   Tab bar location: Top
     -   Status bar location: Bottom
 -   Profiles
-    -   Text -> Font: Source Code Pro, Regular, 13
+    -   Text -> Font: Source Code Pro, Regular, 12
     -   Terminal -> Notifications: check "Silence bell" and "Flash visual bell"
     -   Session -> check "Status bar enabled"
     -   Session -> Configure Status Bar: CPU, Memory, Network, Battery (auto rainbow)
@@ -211,20 +232,6 @@ brew cask install font-source-code-pro
     ```nil
     brew install aspell
     ```
--   evil-operators
-    -   s,d,x,c,y
--   evil-textobj (<https://github.com/laishulu/evil-textobj-syntax>)
-    -   argument
-    -   word
-    -   sub-word
-    -   ()
-    -   {}
-    -   []
-    -   <>
-    -   ""
-    -   ''
-    -   \`\`
--   evil-easymotion (<https://github.com/PythonNut/evil-easymotion>)
 
 
 ## Bettertouchtool {#bettertouchtool}
@@ -275,7 +282,11 @@ brew cask install font-source-code-pro
     config.vm.network "forwarded_port", guest: 1313, host: 1313, host_ip: "127.0.0.1"
     config.ssh.forward_agent = true
 
-    sudo snap install tree
+    sudo apt update
+    sudo apt-get install tree -y
+    sudo apt-get install zsh -y
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
     ```
 -   SSH agent on host
 
@@ -299,9 +310,9 @@ brew cask install font-source-code-pro
     sudo apt install zsh
     cd workspace
     git clone git@github.com:vitmy0000/trinity.git
-    # vim-plug
+
+    # vim-plug & zplug
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    # zplug
     curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
 
     ln -s workspace/trinity/tmux.conf ~/.tmux.conf
@@ -313,6 +324,26 @@ brew cask install font-source-code-pro
     echo '[ -z "$ZSH_VERSION" ] && exec "$SHELL" -l' >> ~/.bashrc
 
     tmux new -s Main
+    ```
+-   TensorFlow
+
+    ```nil
+    Bash Miniconda3-latest-Linux-x86_64.sh
+    conda create -n tf tensorflow
+    conda activate tf
+    pip install pandas
+    pip install sklearn
+    pip install plotly
+    pip install jupyter
+    pip install jupyter_http_over_ws
+    jupyter serverextension enable --py jupyter_http_over_ws
+
+    jupyter notebook \
+      --NotebookApp.allow_origin='https://colab.research.google.com' \
+      --port=8000 \
+      --ip=0.0.0.0 \
+      --NotebookApp.port_retries=0 \
+      --no-browser
     ```
 -   Hugo
 
@@ -360,7 +391,8 @@ brew cask install font-source-code-pro
 
     ```nil
     sudo apt install npm
-    sudo npm i -g @vue/cli
+    sudo npm install -g npm
+    sudo npm install -g @vue/cli
     vue --version
 
     mkdir vue
@@ -380,3 +412,8 @@ brew cask install font-source-code-pro
 -   VLC window size
 -   Surfingkeys not working on Chrome reserved pages
 -   Night shift fullscreen
+
+
+## Test {#test}
+
+{{< figure src="/ox-hugo/confusion_matrix.png" >}}
